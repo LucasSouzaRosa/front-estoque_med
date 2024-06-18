@@ -1,0 +1,47 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+            Listagem de remedios
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-list>
+        <ion-item *ngFor="let remedio of remedios">
+            <ion-thumbnail>
+                <img [src]="remedio.logoUrl" alt="remedio.titulo" />
+            </ion-thumbnail>
+            <ion-label class="remedio-descricao">
+                <h1>{{remedio.titulo}}</h1>
+                <h2>{{remedio.subtitulo}}</h2>
+                <h3>
+                    <strong>
+                        {{remedio.fabricante.length > 1 ? 'fabricante(es)' : 'fabricante' }}:
+                    </strong>
+                </h3>
+                <ul>
+                    <li *ngFor="let fabricante of remedio.fabricante">
+                        <h3 class="fabricante">{{fabricante.nome}}</h3>
+                    </li>
+                </ul>
+                <h3><strong>ISBN</strong>: {{remedio.isbn}}</h3>
+                <h3><strong>Editora</strong>: {{remedio.editora}}</h3>
+                <h3><strong>Ano</strong>: {{remedio.ano}}</h3>
+                <ion-button [routerLink]="['edicao', remedio.id]">Editar</ion-button>
+                <ion-button (click)="excluir(remedio)">Excluir</ion-button>
+            </ion-label>
+            <ion-text color="danger">
+                <h2>{{remedio.preco | currency}}</h2>
+            </ion-text>
+        </ion-item>
+
+    </ion-list>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button [routerLink]="['novo']">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+</ion-content>

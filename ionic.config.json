@@ -1,0 +1,7 @@
+{
+  "name": "remedio-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
