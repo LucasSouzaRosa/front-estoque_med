@@ -12,93 +12,71 @@
     <form [formGroup]="remedioForm" (ngSubmit)="onSubmit()">
 
         <ion-item>
-            <ion-input formControlName="titulo" type="text" placeholder="Título" label="Título"
+            <ion-input formControlName="nome" type="text" placeholder="Nome" label="Nome"
                 labelPlacement="floating"></ion-input>
         </ion-item>
 
-        <ion-note class="ion-padding" color="danger" *ngIf="remedioForm.get('titulo')?.invalid &&
-        (remedioForm.get('titulo')?.dirty || remedioForm.get('titulo')?.touched)">
-            <span *ngIf="remedioForm.get('titulo')?.errors?.['required']">
+        <ion-note class="ion-padding" color="danger" *ngIf="remedioForm.get('nome')?.invalid &&
+        (remedioForm.get('nome')?.dirty || remedioForm.get('nome')?.touched)">
+            <span *ngIf="remedioForm.get('nome')?.errors?.['required']">
                 Campo obrigatório
             </span>
-            <span *ngIf="remedioForm.get('titulo')?.errors?.['minlength']">
+            <span *ngIf="remedioForm.get('nome')?.errors?.['minlength']">
                 O tamanho mínimo são 3 caracteres
             </span>
         </ion-note>
 
         <ion-item>
-            <ion-input formControlName="numeroPaginas" type="number" placeholder="N°. Páginas" label="N°. Páginas"
+            <ion-input formControlName="descricao" type="text" placeholder="Descricao" label="Descricao"
                 labelPlacement="floating"></ion-input>
         </ion-item>
 
-        <ion-note class="ion-padding" color="danger" *ngIf="remedioForm.get('numeroPaginas')?.invalid &&
-                (remedioForm.get('numeroPaginas')?.dirty || remedioForm.get('numeroPaginas')?.touched)">
-            <span *ngIf="remedioForm.get('numeroPaginas')?.errors?.['min']">
-                O valor deve ser no mínimo 5
+        <ion-note class="ion-padding" color="danger" *ngIf="remedioForm.get('descricao')?.invalid &&
+        (remedioForm.get('descricao')?.dirty || remedioForm.get('descricao')?.touched)">
+            <span *ngIf="remedioForm.get('descricao')?.errors?.['required']">
+                Campo obrigatório
+            </span>
+            <span *ngIf="remedioForm.get('descricao')?.errors?.['minlength']">
+                O tamanho mínimo são 5 caracteres
+            </span>
+            <span *ngIf="remedioForm.get('descricao')?.errors?.['maxlength']">
+                O tamanho máximo é de 25 caracteres
             </span>
         </ion-note>
 
         <ion-item>
-            <ion-input formControlName="isbn" type="text" placeholder="ISBN" label="ISBN"
+            <ion-input formControlName="saldo" type="number" placeholder="Saldo" label="Saldo"
                 labelPlacement="floating"></ion-input>
         </ion-item>
 
-        <ion-note class="ion-padding" color="danger" *ngIf="remedioForm.get('isbn')?.invalid &&
-        (remedioForm.get('isbn')?.dirty || remedioForm.get('isbn')?.touched)">
-            <span *ngIf="remedioForm.get('isbn')?.errors?.['minlength'] || remedioForm.get('isbn')?.errors?.['maxlength']">
-                O valor deve conter 10 caracteres
+        <ion-note class="ion-padding" color="danger" *ngIf="remedioForm.get('saldo')?.invalid &&
+                (remedioForm.get('saldo')?.dirty || remedioForm.get('saldo')?.touched)">
+            <span *ngIf="remedioForm.get('saldo')?.errors?.['min']">
+                O valor deve ser diferente de 0
             </span>
         </ion-note>
 
         <ion-item>
-            <ion-input formControlName="editora" type="text" placeholder="Editora" label="Editora"
+            <ion-input formControlName="validade" type="date" placeholder="Data de validade" label="Data de validade"
                 labelPlacement="floating"></ion-input>
         </ion-item>
 
-        <ion-note class="ion-padding" color="danger" *ngIf="remedioForm.get('editora')?.invalid &&
-        (remedioForm.get('editora')?.dirty || remedioForm.get('editora')?.touched)">
-            <span *ngIf="remedioForm.get('editora')?.errors?.['required']">
+        <ion-note class="ion-padding" color="danger" *ngIf="remedioForm.get('dataValidade')?.invalid &&
+        (remedioForm.get('dataValidade')?.dirty || remedioForm.get('dataValidade')?.touched)">
+            <span *ngIf="remedioForm.get('dataValidade')?.errors?.['required']">
                 O campo é obrigatório
             </span>
         </ion-note>
 
         <ion-item>
-            <ion-input formControlName="ano" type="number" placeholder="Ano" label="Ano"
+            <ion-input formControlName="controlado" type="boolean" placeholder="Controlado" label="Controlado"
                 labelPlacement="floating"></ion-input>
         </ion-item>
 
-        <ion-note class="ion-padding" color="danger" *ngIf="remedioForm.get('ano')?.invalid &&
-        (remedioForm.get('ano')?.dirty || remedioForm.get('ano')?.touched)">
-            <span *ngIf="remedioForm.get('ano')?.errors?.['required']">
+        <ion-note class="ion-padding" color="danger" *ngIf="remedioForm.get('controlado')?.invalid &&
+        (remedioForm.get('controlado')?.dirty || remedioForm.get('controlado')?.touched)">
+            <span *ngIf="remedioForm.get('controlado')?.errors?.['required']">
                 O campo é obrigatório
-            </span>
-            <span *ngIf="remedioForm.get('ano')?.errors?.['anoInvalido']">
-                O campo não pode ser maior que o ano atual
-            </span>
-        </ion-note>
-
-        <ion-item>
-            <ion-input formControlName="logoUrl" type="url" placeholder="Logo (URL)" label="Logo (URL)"
-                labelPlacement="floating"></ion-input>
-        </ion-item>
-
-
-        <ion-note class="ion-padding" color="danger" *ngIf="remedioForm.get('logoUrl')?.invalid &&
-        (remedioForm.get('logoUrl')?.dirty || remedioForm.get('logoUrl')?.touched)">
-            <span *ngIf="remedioForm.get('logoUrl')?.errors?.['pattern']">
-                Padrão de URL inválido
-            </span>
-        </ion-note>
-
-        <ion-item>
-            <ion-input formControlName="preco" type="number" placeholder="Preço" label="Preço"
-                labelPlacement="floating"></ion-input>
-        </ion-item>
-
-        <ion-note class="ion-padding" color="danger" *ngIf="remedioForm.get('preco')?.invalid &&
-        (remedioForm.get('preco')?.dirty || remedioForm.get('preco')?.touched)">
-            <span *ngIf="remedioForm.get('preco')?.errors?.['min']">
-                O preço deve ser maior que 0
             </span>
         </ion-note>
 

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { RemedioService } from "../../services/remedio.service";
+import { RemedioService } from "../../services/sintomas.service";
 import { Subscription } from "rxjs";
-import { Remedio } from "../../types/remedio.class";
+import { Remedio } from "../../types/sintomas.class";
 import { AlertService } from '@services';
 import { AlertController, ViewWillEnter } from "@ionic/angular";
 
@@ -51,7 +51,7 @@ export class RemedioListaComponent implements OnInit, OnDestroy, ViewWillEnter {
         this.alertController
             .create({
                 header: 'Confirmação de exclusão',
-                message: `Deseja excluir o remedio ${remedio.nome}?`,
+                message: `Deseja excluir o remedio ${remedio.titulo}?`,
                 buttons: [
                     {
                         text: 'Sim',

@@ -2,13 +2,12 @@ import { FabricanteInterface } from 'src/app/fabricante/types/fabricante.interfa
 
 export interface RemedioInterface {
   id?: number;
-  titulo: string;
-  subtitulo?: string;
-  numeroPaginas: number;
-  isbn: string;
-  fabricante: FabricanteInterface[];
-  editora: string;
-  ano: number;
-  logoUrl: string;
-  preco: number;
+  nome: string;
+  descricao: string;
+  saldo: number;
+  tipo: TipoEnum;
+  dataValidade: Date;
+  controlado: boolean;
+  fabricante: FabricanteInterface;
+  sintomas: SintomasInterface;
 }

@@ -17,7 +17,7 @@ import { AlertService } from '@services';
 })
 export class FabricanteListaComponent
   implements OnInit, ViewWillEnter, ViewDidLeave, ViewWillLeave, ViewDidLeave {
-  fabricante: FabricanteInterface[] = [];
+  fabricantes: FabricanteInterface[] = [];
 
   constructor(
     private alertController: AlertController,
@@ -45,10 +45,10 @@ export class FabricanteListaComponent
   ngOnInit() { }
 
   listar() {
-    const observable = this.fabricanteService.getFabricante();
+    const observable = this.fabricanteService.getFabricantes();
     observable.subscribe(
       (dados) => {
-        this.fabricante = dados;
+        this.fabricantes = dados;
       },
       (erro) => {
         console.error(erro);

@@ -14,7 +14,7 @@ export class FabricanteService {
     private httpClient: HttpClient
   ) {}
 
-  getfabricante(): Observable<FabricanteInterface[]> {
+  getFabricantes(): Observable<FabricanteInterface[]> {
     return this.httpClient.get<FabricanteInterface[]>(this.url);
   }
 

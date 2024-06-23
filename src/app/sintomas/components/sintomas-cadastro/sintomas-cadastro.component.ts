@@ -3,9 +3,8 @@ import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn,
 import { FabricanteInterface, FabricanteService } from "src/app/fabricante";
 import { AlertService } from "@services";
 import { Subscription } from "rxjs";
-import { RemedioService } from "../../services/remedio.service";
+import { RemedioService } from "../../services/sintomas.service";
 import { ActivatedRoute, Router } from "@angular/router";
-import { SintomasInterface } from "src/app/sintomas/types/sintomas.interface";
 
 @Component({
     templateUrl: './remedio-cadastro.component.html'
@@ -28,39 +27,27 @@ export class RemedioCadastroComponent implements OnInit, OnDestroy {
         return null;
     }
 
-    private sintomaValidator: ValidatorFn = (control: AbstractControl<any, any>): ValidationErrors | null => {
-        if (control.value?.length < 1) {
-            return { fabricanteInvalido: true }
-        }
-        return null;
-    }
-
     id: string = '';
     fabricante: FabricanteInterface[] = [];
     remedioForm = new FormGroup({
-        nome: new FormControl('', [
+        titulo: new FormControl('', [
             Validators.required,
             Validators.minLength(3)
         ]),
-        descricao: new FormControl('', [
-            Validators.required,
-            Validators.minLength(5),
-            Validators.maxLength(25)
-        ]),
-        saldo: new FormControl(0, Validators.min(0)),
+        subtitulo: new FormControl(''),
+        numeroPaginas: new FormControl(0, Validators.min(5)),
         isbn: new FormControl('', [
             Validators.minLength(10),
-            Validators.maxLength(25)
+            Validators.maxLength(10)
         ]),
         editora: new FormControl('', Validators.required),
-        validade: new FormControl(2000, [
+        ano: new FormControl(2000, [
             Validators.required,
             this.anoAtualValidator
         ]),
-        controlado: new FormControl(''),
-        fabricante: new FormControl<FabricanteInterface[]>([], this.fabricanteValidator),
-        tipo: new FormControl(''),
-        sintomas: new FormControl<SintomasInterface[]>([], this.sintomaValidator),
+        logoUrl: new FormControl('http://', Validators.pattern(this.URL_PATTERN)),
+        preco: new FormControl(0, Validators.min(0)),
+        fabricante: new FormControl<FabricanteInterface[]>([], this.fabricanteValidator)
     });
 
     private subscriptions = new Subscription();
@@ -95,14 +82,14 @@ export class RemedioCadastroComponent implements OnInit, OnDestroy {
     }
 
     carregafabricante() {
-        const subscription = this.fabricanteService.getFabricantes().subscribe(
-            (fabricantes) => {
-                console.log(fabricantes);
-                this.fabricante = fabricantes;
+        const subscription = this.fabricanteService.getfabricante().subscribe(
+            (fabricante) => {
+                console.log(fabricante);
+                this.fabricante = fabricante;
             },
             (error) => {
                 console.error(error);
-                this.alertService.error('Não foi possível carregar os fabricantes. Tente novamente mais tarde')
+                this.alertService.error('Não foi possível carregar os fabricante. Tente novamente mais tarde')
 
             }
         )

@@ -1,0 +1,43 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Cadastro de Sintomas</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <form [formGroup]="sintomasForm" (ngSubmit)="onSubmit()">
+
+        <ion-item>
+            <ion-input formControlName="nome" type="text" placeholder="Sintoma" label="NomeSintomas"
+                labelPlacement="floating"></ion-input>
+        </ion-item>
+
+        <ion-note class="ion-padding" color="danger" *ngIf="sintomaForm.get('titulo')?.invalid &&
+        (sintomaForm.get('titulo')?.dirty || sintomaForm.get('titulo')?.touched)">
+            <span *ngIf="sintomaForm.get('titulo')?.errors?.['required']">
+                Campo obrigatório
+            </span>
+            <span *ngIf="sintomaForm.get('titulo')?.errors?.['minlength']">
+                O tamanho mínimo são 3 caracteres
+            </span>
+        </ion-note>
+
+        <ion-note class="ion-padding" color="danger" *ngIf="sintomaForm.get('nomeSintomas')?.invalid &&
+                (sintomaForm.get('nomeSintomas')?.dirty || sintomaForm.get('nomeSintomas')?.touched)">
+            <span *ngIf="sintomaForm.get('nomeSintomas')?.errors?.['min']">
+                O valor deve ser no mínimo 5
+            </span>
+        </ion-note>
+ 
+
+    </form>
+
+</ion-content>
+
+<ion-footer>
+
+</ion-footer>

@@ -11,7 +11,7 @@ import { AlertService } from '@services';
   templateUrl: './fabricante-cadastro.component.html',
   styleUrls: ['./fabricante-cadastro.component.scss'],
 })
-export class fabricanteCadastroComponent implements OnInit {
+export class FabricanteCadastroComponent implements OnInit {
   fabricanteId: string | null;
   fabricanteForm: FormGroup;
 
@@ -29,7 +29,7 @@ export class fabricanteCadastroComponent implements OnInit {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     if (id) {
       this.fabricanteId = id;
-      this.fabricanteService.getFabricante(this.fabricanteId).subscribe((fabricante) => {
+      this.fabricanteService.getFabricante(this.fabricanteId!).subscribe((fabricante) => {
         this.fabricanteForm = this.createForm(fabricante);
       });
     }
@@ -42,9 +42,6 @@ export class fabricanteCadastroComponent implements OnInit {
         Validators.minLength(3),
         Validators.maxLength(150),
       ]),
-      dataNascimento: new FormControl(
-        fabricante?.dataNascimento || new Date().toISOString()
-      )
     });
   }
 

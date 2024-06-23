@@ -12,7 +12,7 @@
     <ion-item *ngFor="let fabricante of fabricantes">
       <ion-label>{{fabricante.nome}}</ion-label>
       <ion-buttons>
-        <ion-button color="primary" [routerLink]="['edicao', fabricante.id]">
+        <ion-button color="primary" [routerLink]="[fabricante.id]">
           <ion-icon name="create" slot="icon-only"></ion-icon> 
         </ion-button>
         <ion-button color="primary" (click)="confirmarExclusao(fabricante)">

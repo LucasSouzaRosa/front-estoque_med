@@ -1,13 +1,14 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Remedio } from '../types/remedio.class';
+import { Remedio } from '../types/sintomas.class';
 import { Observable, map, tap } from "rxjs";
-import { RemedioInterface } from "../types/remedio.interface";
+import { RemedioInterface } from "../types/sintomas.interface";
 
 @Injectable({
     providedIn: 'root'
 })
 export class RemedioService {
+
 
     API_URL = 'http://localhost:3000/remedios/';
 
@@ -15,7 +16,7 @@ export class RemedioService {
         private httpClient: HttpClient
     ) { }
 
-    save(remedio: RemedioInterface) {
+    save(remedio: any) {
         return this.httpClient
             .post<RemedioInterface>(this.API_URL, remedio);
     }
@@ -26,7 +27,7 @@ export class RemedioService {
 
     getRemedios(): Observable<Remedio[]> {
         return this.httpClient
-            .get<RemedioInterface[]>(this.API_URL)
+            .get<Remedio[]>(this.API_URL)
             .pipe(
                 tap((data) => console.log('Data: ', data)),
                 map((data) => {
@@ -36,7 +37,7 @@ export class RemedioService {
             )
     }
 
-    update(id: string, remedio: RemedioInterface) {
+    update(id: string, remedio: any) {
         return this.httpClient.put(
             this.API_URL + id, remedio
         )
