@@ -30,7 +30,7 @@ export class RemedioCadastroComponent implements OnInit, OnDestroy {
 
     private sintomaValidator: ValidatorFn = (control: AbstractControl<any, any>): ValidationErrors | null => {
         if (control.value?.length < 1) {
-            return { fabricanteInvalido: true }
+            return { sintomaInvalido: true }
         }
         return null;
     }
@@ -45,15 +45,12 @@ export class RemedioCadastroComponent implements OnInit, OnDestroy {
         descricao: new FormControl('', [
             Validators.required,
             Validators.minLength(5),
-            Validators.maxLength(25)
+            Validators.maxLength(100)
         ]),
-        saldo: new FormControl(0, Validators.min(0)),
-        isbn: new FormControl('', [
-            Validators.minLength(10),
-            Validators.maxLength(25)
+        saldo: new FormControl('',[
+            Validators.minLength(0)
         ]),
-        editora: new FormControl('', Validators.required),
-        validade: new FormControl(2000, [
+        dataValidade: new FormControl(2000, [
             Validators.required,
             this.anoAtualValidator
         ]),

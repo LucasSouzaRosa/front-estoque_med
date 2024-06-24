@@ -1,4 +1,5 @@
 import { FabricanteInterface } from 'src/app/fabricante/types/fabricante.interface';
+import { SintomasInterface } from 'src/app/sintomas/types/sintomas.interface';
 
 export interface RemedioInterface {
   id?: number;
@@ -9,5 +10,5 @@ export interface RemedioInterface {
   dataValidade: Date;
   controlado: boolean;
   fabricante: FabricanteInterface;
-  sintomas: SintomasInterface;
+  sintoma: SintomasInterface;
 }

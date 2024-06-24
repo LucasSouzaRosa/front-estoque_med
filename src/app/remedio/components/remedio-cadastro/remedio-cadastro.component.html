@@ -40,7 +40,7 @@
                 O tamanho mínimo são 5 caracteres
             </span>
             <span *ngIf="remedioForm.get('descricao')?.errors?.['maxlength']">
-                O tamanho máximo é de 25 caracteres
+                O tamanho máximo é de 300 caracteres
             </span>
         </ion-note>
 
@@ -61,6 +61,27 @@
                 labelPlacement="floating"></ion-input>
         </ion-item>
 
+        <ion-item>
+            <ion-label position="floating">Data de validade: </ion-label>
+      
+            <ion-datetime-button datetime="datetime"></ion-datetime-button>
+      
+            <ion-modal [keepContentsMounted]="true">
+              <ng-template>
+                <ion-datetime
+                  id="datetime"
+                  formControlName="dataValidade"
+                  display-format="DD de MMMM de YYYY"
+                  min="1930-01-01"
+                  presentation="date"
+                  showDefaultButtons="true"
+                  doneText="Selecionar"
+                  cancelText="Cancelar"
+                ></ion-datetime>
+              </ng-template>
+            </ion-modal>
+          </ion-item>
+
         <ion-note class="ion-padding" color="danger" *ngIf="remedioForm.get('dataValidade')?.invalid &&
         (remedioForm.get('dataValidade')?.dirty || remedioForm.get('dataValidade')?.touched)">
             <span *ngIf="remedioForm.get('dataValidade')?.errors?.['required']">
@@ -68,10 +89,33 @@
             </span>
         </ion-note>
 
-        <ion-item>
-            <ion-input formControlName="controlado" type="boolean" placeholder="Controlado" label="Controlado"
-                labelPlacement="floating"></ion-input>
-        </ion-item>
+        <ion-list>
+            <ion-list-header>
+              <ion-label>Ativo</ion-label>
+            </ion-list-header>
+            <ion-radio-group name="ativo" formControlName="ativo">
+              <ion-item>
+                <ion-radio slot="start" value="A">Ativo</ion-radio>
+              </ion-item>
+              <ion-item>
+                <ion-radio slot="start" value="I">Inativo</ion-radio>
+              </ion-item>
+            </ion-radio-group>
+          </ion-list>
+
+        <ion-list>
+            <ion-list-header>
+              <ion-label>Controlado</ion-label>
+            </ion-list-header>
+            <ion-radio-group name="controlado" formControlName="controlado">
+              <ion-item>
+                <ion-radio slot="start" value="C">Controlado</ion-radio>
+              </ion-item>
+              <ion-item>
+                <ion-radio slot="start" value="N">Controlado</ion-radio>
+              </ion-item>
+            </ion-radio-group>
+          </ion-list>
 
         <ion-note class="ion-padding" color="danger" *ngIf="remedioForm.get('controlado')?.invalid &&
         (remedioForm.get('controlado')?.dirty || remedioForm.get('controlado')?.touched)">

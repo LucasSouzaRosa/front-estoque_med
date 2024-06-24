@@ -1,6 +1,9 @@
+import { RemedioInterface } from "src/app/remedio/types/remedio.interface";
+
 export interface SintomasInterface {
   id?: number;
   nome: string;
-  descricao: string;
+  remedio: RemedioInterface;
+  ativo: boolean;
  
 }

@@ -22,7 +22,7 @@ export class Remedio {
         this.tipo = data.tipo;
         this.dataValidade = new Date(data.dataValidade);
         this.controlado = data.controlado;
-        this.sintomas = data.sintomas;
+        this.sintomas = data.sintoma;
         this.fabricante = Array.isArray(data.fabricante) ? data.fabricante : [data.fabricante];
     }
 }

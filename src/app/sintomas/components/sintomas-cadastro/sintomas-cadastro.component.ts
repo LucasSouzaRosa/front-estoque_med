@@ -1,53 +1,37 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from "@angular/forms";
-import { FabricanteInterface, FabricanteService } from "src/app/fabricante";
+import { RemedioService } from "src/app/remedio/services/remedio.service";
 import { AlertService } from "@services";
 import { Subscription } from "rxjs";
-import { RemedioService } from "../../services/sintomas.service";
+import { SintomasService } from "../../services/sintomas.service";
 import { ActivatedRoute, Router } from "@angular/router";
+import { SintomasInterface } from "../../types/sintomas.interface";
+import { RemedioInterface } from "src/app/remedio/types/remedio.interface";
 
 @Component({
-    templateUrl: './remedio-cadastro.component.html'
+    templateUrl: './sintomas-cadastro.component.html'
 })
-export class RemedioCadastroComponent implements OnInit, OnDestroy {
+export class SintomasCadastroComponent implements OnInit, OnDestroy {
 
     private URL_PATTERN: RegExp = new RegExp(/[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/);
 
-    private anoAtualValidator: ValidatorFn = (control: AbstractControl<any, any>): ValidationErrors | null => {
-        const anoAtual = new Date().getFullYear();
-        if (control.value && control.value > anoAtual) {
-            return { anoInvalido: true }
-        }
-        return null;
-    }
-    private fabricanteValidator: ValidatorFn = (control: AbstractControl<any, any>): ValidationErrors | null => {
+    private remedioValidator: ValidatorFn = (control: AbstractControl<any, any>): ValidationErrors | null => {
         if (control.value?.length < 1) {
-            return { fabricanteInvalido: true }
+            return { remedioInvalido: true }
         }
         return null;
     }
 
     id: string = '';
-    fabricante: FabricanteInterface[] = [];
-    remedioForm = new FormGroup({
-        titulo: new FormControl('', [
+    remedio: RemedioInterface[] = [];
+    sintomaForm = new FormGroup({
+        nome: new FormControl('', [
             Validators.required,
             Validators.minLength(3)
         ]),
-        subtitulo: new FormControl(''),
-        numeroPaginas: new FormControl(0, Validators.min(5)),
-        isbn: new FormControl('', [
-            Validators.minLength(10),
-            Validators.maxLength(10)
-        ]),
-        editora: new FormControl('', Validators.required),
-        ano: new FormControl(2000, [
-            Validators.required,
-            this.anoAtualValidator
-        ]),
-        logoUrl: new FormControl('http://', Validators.pattern(this.URL_PATTERN)),
-        preco: new FormControl(0, Validators.min(0)),
-        fabricante: new FormControl<FabricanteInterface[]>([], this.fabricanteValidator)
+        descricao: new FormControl(''),
+        remedio: new FormControl<RemedioInterface[]>([], this.remedioValidator),
+        ativo: new FormControl('', Validators.required),
     });
 
     private subscriptions = new Subscription();
@@ -56,21 +40,21 @@ export class RemedioCadastroComponent implements OnInit, OnDestroy {
         private activatedRoute: ActivatedRoute,
 
         private router: Router,
-        private fabricanteService: FabricanteService,
-        private alertService: AlertService,
         private remedioService: RemedioService,
+        private alertService: AlertService,
+        private sintomaService: SintomasService,
     ) { }
 
     ngOnInit(): void {
-        this.carregafabricante()
+        this.carregaremedio()
         
         this.id = this.activatedRoute.snapshot.params['id'];
         if (this.id) {
             this.subscriptions.add(
-                this.remedioService.getRemedio(this.id).subscribe((remedio) => {
-                    this.remedioForm.patchValue({ ...remedio })
+                this.sintomaService.getSintoma(this.id).subscribe((sintoma) => {
+                    this.sintomaForm.patchValue({ ...sintoma })
                 }, (error) => {
-                    this.alertService.error('Não foi possível carregar os dados do remedio!')
+                    this.alertService.error('Não foi possível carregar os dados do sintoma!')
                     console.error(error)
                 })
             )
@@ -81,45 +65,45 @@ export class RemedioCadastroComponent implements OnInit, OnDestroy {
         this.subscriptions.unsubscribe();
     }
 
-    carregafabricante() {
-        const subscription = this.fabricanteService.getfabricante().subscribe(
-            (fabricante) => {
-                console.log(fabricante);
-                this.fabricante = fabricante;
+    carregaremedio() {
+        const subscription = this.remedioService.getRemedios().subscribe(
+            (remedios) => {
+                console.log(remedios);
+                this.remedio = remedios;
             },
             (error) => {
                 console.error(error);
-                this.alertService.error('Não foi possível carregar os fabricante. Tente novamente mais tarde')
+                this.alertService.error('Não foi possível carregar os remedios. Tente novamente mais tarde')
 
             }
         )
         this.subscriptions.add(subscription);
     }
 
-    compareWith(o1: FabricanteInterface, o2: FabricanteInterface) {
+    compareWith(o1: RemedioInterface, o2: RemedioInterface) {
         return o1 && o2 ? o1.id === o2.id : o1 === o2;
     }
 
     onSubmit() {
-        const remedio = this.remedioForm.value;
+        const sintoma = this.sintomaForm.value;
 
         let observable;
         if (this.id) {
-            observable = this.remedioService.update(this.id, remedio);
+            observable = this.sintomaService.update(this.id, sintoma);
         } else {
-            observable = this.remedioService.save(remedio);
+            observable = this.sintomaService.save(sintoma);
         }
 
         this.subscriptions.add(
             observable
                 .subscribe({
                     next: () => {
-                        this.router.navigate(['/remedios'])
+                        this.router.navigate(['/sintoma'])
                     },
                     error: (error) => {
                         console.error(error);
                         this.alertService.error(
-                            'Não foi possível salvar o remedio.'
+                            'Não foi possível salvar o sintoma.'
                         );
                     }
                 })
