@@ -19,6 +19,6 @@ import { FabricanteCadastroComponent } from './components/fabricante-cadastro/fa
     fabricantePageRoutingModule,
     HttpClientModule,
   ],
-  declarations: [FabricanteListaComponent, FabricanteCadastroComponent]
+  declarations: [FabricanteCadastroComponent]
 })
 export class FabricantePageModule {}

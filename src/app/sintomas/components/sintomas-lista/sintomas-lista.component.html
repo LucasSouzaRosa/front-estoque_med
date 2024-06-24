@@ -3,42 +3,32 @@
         <ion-buttons slot="start">
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
-        <ion-title>
-            Listagem de remedios
-        </ion-title>
+        <ion-title>Listagem de sintomas</ion-title>
     </ion-toolbar>
 </ion-header>
+
 <ion-content>
     <ion-list>
-        <ion-item *ngFor="let remedio of remedios">
-            <ion-thumbnail>
-                <img [src]="remedio.logoUrl" alt="remedio.titulo" />
-            </ion-thumbnail>
-            <ion-label class="remedio-descricao">
-                <h1>{{remedio.titulo}}</h1>
-                <h2>{{remedio.subtitulo}}</h2>
+        <ion-item *ngFor="let sintoma of sintomas">
+            <ion-label class="sintoma-descricao">
+                <h1>{{ sintoma.nome }}</h1>
+                <h3><strong>Ativo</strong>: {{ sintoma.ativo ? 'Sim' : 'Não' }}</h3>
                 <h3>
                     <strong>
-                        {{remedio.fabricante.length > 1 ? 'fabricante(es)' : 'fabricante' }}:
+                        {{ sintoma.remedio.length > 1 ? 'Remédios associados' : 'Remédio associado' }}:
                     </strong>
                 </h3>
                 <ul>
-                    <li *ngFor="let fabricante of remedio.fabricante">
-                        <h3 class="fabricante">{{fabricante.nome}}</h3>
+                    <li *ngFor="let remedio of sintoma.remedio">
+                        <h3 class="remedio">{{ remedio.nome }}</h3>
                     </li>
                 </ul>
-                <h3><strong>ISBN</strong>: {{remedio.isbn}}</h3>
-                <h3><strong>Editora</strong>: {{remedio.editora}}</h3>
-                <h3><strong>Ano</strong>: {{remedio.ano}}</h3>
-                <ion-button [routerLink]="['edicao', remedio.id]">Editar</ion-button>
-                <ion-button (click)="excluir(remedio)">Excluir</ion-button>
+                <ion-button [routerLink]="['edicao', sintoma.id]">Editar</ion-button>
+                <ion-button (click)="excluir(sintoma)">Excluir</ion-button>
             </ion-label>
-            <ion-text color="danger">
-                <h2>{{remedio.preco | currency}}</h2>
-            </ion-text>
         </ion-item>
-
     </ion-list>
+
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button [routerLink]="['novo']">
             <ion-icon name="add"></ion-icon>

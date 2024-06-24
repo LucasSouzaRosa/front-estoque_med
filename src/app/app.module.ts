@@ -10,14 +10,20 @@ import { HttpClientModule } from '@angular/common/http';
 
 import ptBr from '@angular/common/locales/pt';
 
-import { registerLocaleData } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SintomasListaComponent } from './sintomas/components/sintomas-lista/sintomas-lista.component';
+import { RemedioService } from './remedio/services/remedio.service';
+import { RemedioListaComponent } from './remedio/components/remedio-lista/remedio-lista.component';
+import { FabricanteListaComponent } from './fabricante/components/fabricante-lista/fabricante-lista.page';
 
 registerLocaleData(ptBr);
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
+  declarations: [AppComponent, SintomasListaComponent, RemedioListaComponent, FabricanteListaComponent],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, IonicModule, CommonModule, FormsModule, ReactiveFormsModule],
   providers: [
+    RemedioService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: LOCALE_ID, useValue: 'pt-BR' },
     {

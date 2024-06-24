@@ -1,7 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { map, tap } from "rxjs/operators";
 import { Sintomas } from '../types/sintomas.class';
-import { Observable, map, tap } from "rxjs";
 import { SintomasInterface } from "../types/sintomas.interface";
 
 @Injectable({
@@ -9,43 +10,42 @@ import { SintomasInterface } from "../types/sintomas.interface";
 })
 export class SintomasService {
 
-
-    API_URL = 'http://localhost:3000/remedios/';
+    API_URL = 'http://localhost:3000/sintomas/';
 
     constructor(
         private httpClient: HttpClient
     ) { }
 
-    save(remedio: any) {
-        return this.httpClient
-            .post<SintomasInterface>(this.API_URL, remedio);
+    save(sintoma: SintomasInterface): Observable<SintomasInterface> {
+        return this.httpClient.post<SintomasInterface>(this.API_URL, sintoma);
     }
 
-    getSintoma(id: string) {
+    getSintoma(id: string): Observable<SintomasInterface> {
         return this.httpClient.get<SintomasInterface>(this.API_URL + id);
     }
 
     getSintomas(): Observable<Sintomas[]> {
         return this.httpClient
-            .get<Sintomas[]>(this.API_URL)
+            .get<SintomasInterface[]>(this.API_URL)
             .pipe(
                 tap((data) => console.log('Data: ', data)),
                 map((data) => {
-                    return data.map(item => new Sintomas(item))
+                    return data.map(item => new Sintomas({
+                        id: Number(item.id), // Convertendo para número, se necessário
+                        nome: item.nome,
+                        ativo: item.ativo,
+                        remedio: item.remedio
+                    }));
                 }),
-                tap((data) => console.log('Data: ', data)),
-            )
+                tap((data) => console.log('Sintomas: ', data)),
+            );
     }
 
-    update(id: string, remedio: any) {
-        return this.httpClient.put(
-            this.API_URL + id, remedio
-        )
+    update(id: string, sintoma: SintomasInterface): Observable<SintomasInterface> {
+        return this.httpClient.put<SintomasInterface>(this.API_URL + id, sintoma);
     }
 
-    remove(remedio: Sintomas) {
-        return this.httpClient.delete(
-            this.API_URL + remedio.id
-        )
+    remove(sintoma: SintomasInterface): Observable<any> {
+        return this.httpClient.delete(this.API_URL + sintoma.id);
     }
 }

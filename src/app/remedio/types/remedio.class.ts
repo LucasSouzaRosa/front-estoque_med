@@ -1,7 +1,8 @@
-import { FabricanteInterface } from "src/app/fabricante";
+import { FabricanteInterface } from "src/app/fabricante/types/fabricante.interface";
 import { RemedioInterface } from "./remedio.interface";
 import { isNumber, isString } from '@functions';
 import { SintomasInterface } from "src/app/sintomas/types/sintomas.interface";
+import { TipoEnum } from "./tipoenum";
 
 export class Remedio {
     id?: number;
@@ -10,21 +11,19 @@ export class Remedio {
     saldo: number;
     tipo: TipoEnum;
     fabricante: FabricanteInterface[];
-    dataValidade: Date;
+    dataValidade: Date | null; // Alterado para Date | null
     controlado: boolean;
     sintomas: SintomasInterface[];
 
     constructor(data: RemedioInterface) {
-        this.id = isNumber(data.id);
-        this.nome = isString(data.nome);
-        this.descricao = isString(data.descricao);
-        this.saldo = isNumber(data.saldo);
-        this.tipo = data.tipo;
-        this.dataValidade = new Date(data.dataValidade);
-        this.controlado = data.controlado;
-        this.sintomas = data.sintoma;
+        this.id = isNumber(data.id) ? data.id : undefined;
+        this.nome = isString(data.nome) ? data.nome : '';
+        this.descricao = isString(data.descricao) ? data.descricao : undefined;
+        this.saldo = isNumber(data.saldo) ? data.saldo : 0;
+        this.tipo = data.tipo as TipoEnum;
+        this.dataValidade = data.dataValidade !== null ? new Date(data.dataValidade) : null;
+        this.controlado = !!data.controlado;
+        this.sintomas = data.sintoma || [];
         this.fabricante = Array.isArray(data.fabricante) ? data.fabricante : [data.fabricante];
     }
 }
-
-

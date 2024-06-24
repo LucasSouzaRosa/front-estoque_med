@@ -1,66 +1,48 @@
-<ion-header>
-    <ion-toolbar color="primary">
-        <ion-buttons slot="start">
-            <ion-menu-button></ion-menu-button>
-        </ion-buttons>
-        <ion-title>Cadastro de Sintomas</ion-title>
-    </ion-toolbar>
-</ion-header>
+<form [formGroup]="sintomaForm" (ngSubmit)="onSubmit()">
 
-<ion-content>
+    <ion-item>
+        <ion-label position="floating">Nome do Sintoma</ion-label>
+        <ion-input formControlName="nome" type="text"></ion-input>
+    </ion-item>
+    <ion-note color="danger" *ngIf="sintomaForm.get('nome')?.invalid && (sintomaForm.get('nome')?.dirty || sintomaForm.get('nome')?.touched)">
+        <ng-container *ngIf="sintomaForm.get('nome')?.errors?.['required']">
+            Campo obrigatório
+        </ng-container>
+        <ng-container *ngIf="sintomaForm.get('nome')?.errors?.['minlength']">
+            O tamanho mínimo são 3 caracteres
+        </ng-container>
+    </ion-note>
 
-    <form [formGroup]="sintomasForm" (ngSubmit)="onSubmit()">
+    <ion-item>
+        <ion-label position="floating">Remédios</ion-label>
+        <ion-select formControlName="remedios" multiple="true" cancelText="Cancelar" okText="Confirmar"
+            [compareWith]="compareWith">
+            <ion-select-option *ngFor="let remedio of remedios" [value]="remedio">{{ remedio.nome }}</ion-select-option>
+        </ion-select>
+    </ion-item>
+    <ion-note color="danger" *ngIf="sintomaForm.get('remedios')?.invalid && (sintomaForm.get('remedios')?.dirty || sintomaForm.get('remedios')?.touched)">
+        <ng-container *ngIf="sintomaForm.get('remedios')?.errors?.['remedioInvalido']">
+            Devem ser selecionados no mínimo 1 remédio.
+        </ng-container>
+    </ion-note>
 
-        <ion-item>
-            <ion-input formControlName="nome" type="text" placeholder="Sintoma" label="NomeSintomas"
-                labelPlacement="floating"></ion-input>
-        </ion-item>
+    <ion-item>
+        <ion-label>Ativo</ion-label>
+        <ion-toggle formControlName="ativo"></ion-toggle>
+    </ion-item>
+    <ion-note color="danger" *ngIf="sintomaForm.get('ativo')?.invalid && (sintomaForm.get('ativo')?.dirty || sintomaForm.get('ativo')?.touched)">
+        <ng-container *ngIf="sintomaForm.get('ativo')?.errors?.['required']">
+            Campo obrigatório
+        </ng-container>
+    </ion-note>
 
-        <ion-note class="ion-padding" color="danger" *ngIf="sintomaForm.get('nome')?.invalid &&
-        (sintomaForm.get('nome')?.dirty || sintomaForm.get('nome')?.touched)">
-            <span *ngIf="sintomaForm.get('nome')?.errors?.['required']">
-                Campo obrigatório
-            </span>
-            <span *ngIf="sintomaForm.get('nome')?.errors?.['minlength']">
-                O tamanho mínimo são 3 caracteres
-            </span>
-        </ion-note>
-
-        <ion-note class="ion-padding" color="danger" *ngIf="sintomaForm.get('ativo')?.invalid &&
-                (sintomaForm.get('ativo')?.dirty || sintomaForm.get('ativo')?.touched)">
-            <span *ngIf="sintomaForm.get('ativo')?.errors?.['required']">
-                Campo obrigatório
-            </span>
-        </ion-note>
-
-        <ion-item>
-            <ion-item>
-                <ion-select formControlName="remedio" label="remedio(es)" value="" multiple="true"
-                    placeholder="Selecione os remedios" [compareWith]="compareWith">
-                    <ion-select-option *ngFor="let remedio of remedio" [value]="remedio">
-                        {{remedio.nome}}
-                    </ion-select-option>
-                </ion-select>
-            </ion-item>
-        </ion-item>
-        
-        <ion-note class="ion-padding" color="danger" *ngIf="sintomaForm.get('remedio')?.invalid &&
-        (sintomaForm.get('remedio')?.dirty || sintomaForm.get('remedio')?.touched)">
-            <span *ngIf="sintomaForm.get('remedio')?.errors?.['remedioInvalido']">
-                Devem ser selecionados no mínimo 1 remedio e no máximo 10.
-            </span>
-        </ion-note>
-
-        <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-            <ion-button type="submit" [disabled]="sintomaForm.invalid">
+    <ion-row class="ion-margin-top">
+        <ion-col size="12" class="ion-text-center">
+            <ion-button expand="block" type="submit" [disabled]="sintomaForm.invalid">
+                Salvar
                 <ion-icon name="checkmark"></ion-icon>
             </ion-button>
-        </ion-fab>
+        </ion-col>
+    </ion-row>
 
-    </form>
-
-</ion-content>
-
-<ion-footer>
-
-</ion-footer>
+</form>

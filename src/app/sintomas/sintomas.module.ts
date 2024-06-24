@@ -8,6 +8,6 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
     imports: [SintomasRoutingModule, CommonModule, IonicModule, FormsModule, ReactiveFormsModule],
-    declarations: [SintomasListaComponent, SintomasCadastroComponent]
+    declarations: [SintomasCadastroComponent]
 })
 export class SintomasModule { }

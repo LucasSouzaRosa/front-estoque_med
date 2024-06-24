@@ -8,6 +8,6 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
     imports: [RemedioRoutingModule, CommonModule, IonicModule, FormsModule, ReactiveFormsModule],
-    declarations: [RemedioListaComponent, RemedioCadastroComponent]
+    declarations: [ RemedioCadastroComponent]
 })
 export class RemedioModule { }

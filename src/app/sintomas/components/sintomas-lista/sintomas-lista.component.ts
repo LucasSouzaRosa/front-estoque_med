@@ -1,82 +1,71 @@
+// sintomas-lista.component.ts
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { RemedioService } from "../../services/sintomas.service";
 import { Subscription } from "rxjs";
-import { Remedio } from "../../types/sintomas.class";
+import { Sintomas } from "../../types/sintomas.class";
+import { SintomasService } from "../../services/sintomas.service";
 import { AlertService } from '@services';
-import { AlertController, ViewWillEnter } from "@ionic/angular";
+import { AlertController } from "@ionic/angular";
 
 @Component({
-    templateUrl: './remedio-lista.component.html',
-    styleUrls: ['./remedio-lista.component.scss']
+    templateUrl: './sintomas-lista.component.html',
+    styleUrls: ['./sintomas-lista.component.scss']
 })
-export class RemedioListaComponent implements OnInit, OnDestroy, ViewWillEnter {
-
-    public remedios: Remedio[] = [];
+export class SintomasListaComponent implements OnInit, OnDestroy {
+    public sintomas: Sintomas[] = [];
     private subscription!: Subscription;
 
     constructor(
-        private remedioService: RemedioService,
+        private sintomaService: SintomasService,
         private alertService: AlertService,
         private alertController: AlertController,
     ) { }
-    
-    ionViewWillEnter(): void {
+
+    ngOnInit(): void {
         this.listagem();
     }
 
-    ngOnInit(): void {
-                
-    }
-
     ngOnDestroy(): void {
-        this.subscription.unsubscribe();
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 
     listagem() {
-        this.subscription = this.remedioService
-            .getRemedios()
-            .subscribe(
-                (response) => {
-                    console.log('Response: ', response);
-                    this.remedios = response;
+        this.subscription = this.sintomaService.getSintomas().subscribe(
+            (response) => {
+                console.log('Response: ', response);
+                this.sintomas = response.map(data => new Sintomas(data));
+            },
+            (error) => {
+                console.error(error);
+                this.alertService.error('Erro ao carregar listagem de sintomas');
+            }
+        );
+    }
+
+    excluir(sintoma: Sintomas) {
+        this.alertController.create({
+            header: 'Confirmação de exclusão',
+            message: `Deseja excluir o sintoma ${sintoma.nome}?`,
+            buttons: [
+                {
+                    text: 'Sim',
+                    handler: () => {
+                        this.sintomaService.remove(sintoma).subscribe({
+                            next: () => {
+                                this.sintomas = this.sintomas.filter(s => s.id !== sintoma.id);
+                            },
+                            error: (error: any) => {
+                                console.error(error);
+                                this.alertService.error('Não foi possível excluir o sintoma!');
+                            }
+                        });
+                    },
                 },
-                (error) => {
-                    console.error(error);
-                    this.alertService.error('Erro ao carregar listagem de remedios');
-                }
-            );
+                {
+                    text: 'Não',
+                },
+            ],
+        }).then((alerta) => alerta.present());
     }
-
-    excluir(remedio: Remedio) {
-        this.alertController
-            .create({
-                header: 'Confirmação de exclusão',
-                message: `Deseja excluir o remedio ${remedio.titulo}?`,
-                buttons: [
-                    {
-                        text: 'Sim',
-                        handler: () => {
-                            this.remedioService
-                                .remove(remedio)
-                                .subscribe({
-                                    next: () => {
-                                        this.remedios = this.remedios.filter(
-                                            l => l.id !== remedio.id
-                                        )
-                                    },
-                                    error: (error) => {
-                                        console.error(error);
-                                        this.alertService.error('Não foi possível excluir o remedio!');
-                                    }
-                                });;
-                        },
-                    },
-                    {
-                        text: 'Não',
-                    },
-                ],
-            })
-            .then((alerta) => alerta.present());
-    }
-
 }
