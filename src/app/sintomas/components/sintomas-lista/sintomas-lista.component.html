@@ -23,7 +23,7 @@
                         <h3 class="remedio">{{ remedio.nome }}</h3>
                     </li>
                 </ul>
-                <ion-button [routerLink]="['edicao', sintoma.id]">Editar</ion-button>
+                <ion-button [routerLink]="['sintomas', sintoma.id]">Editar</ion-button>
                 <ion-button (click)="excluir(sintoma)">Excluir</ion-button>
             </ion-label>
         </ion-item>

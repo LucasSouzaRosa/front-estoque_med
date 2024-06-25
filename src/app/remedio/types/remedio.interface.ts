@@ -3,7 +3,7 @@ import { SintomasInterface } from 'src/app/sintomas/types/sintomas.interface';
 import { TipoEnum } from './tipoenum';
 
 export interface RemedioInterface {
-  id?: number;
+  id?: string;
   nome: string;
   descricao: string;
   saldo: number;

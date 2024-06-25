@@ -39,6 +39,7 @@ export class SintomasListaComponent implements OnInit, OnDestroy {
             (error) => {
                 console.error(error);
                 this.alertService.error('Erro ao carregar listagem de sintomas');
+                console.log('teste');
             }
         );
     }

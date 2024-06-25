@@ -14,7 +14,7 @@ const routes: Routes = [
     component: FabricanteCadastroComponent
   },
   {
-    path: 'edicao/:id',
+    path: 'fabricantes/:id',
     component: FabricanteCadastroComponent
   }
 ];

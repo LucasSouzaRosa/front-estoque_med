@@ -13,13 +13,17 @@ const routes: Routes = [
       import('./home/home.module').then((m) => m.HomePageModule),
   },
   {
-    path: 'fabricante',
+    path: 'fabricantes',
     loadChildren: () =>
       import('./fabricante/fabricante.module').then((m) => m.FabricantePageModule),
   },
   {
     path: 'remedios',
     loadChildren: () => import('./remedio/remedio.module').then(module => module.RemedioModule)
+  },
+  {
+    path: 'sintomas',
+    loadChildren: () => import('./sintomas/sintomas.module').then(module => module.SintomasModule)
   }
 ];
 

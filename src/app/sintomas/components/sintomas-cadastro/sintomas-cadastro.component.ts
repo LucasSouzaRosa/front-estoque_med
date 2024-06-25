@@ -39,7 +39,6 @@ export class SintomasCadastroComponent implements OnInit, OnDestroy {
     ) {
         this.sintomaForm = this.formBuilder.group({
             nome: ['', [Validators.required, Validators.minLength(3)]],
-            descricao: [''],
             remedios: [[], [this.remedioValidator]],
             ativo: [true, Validators.required]
         });

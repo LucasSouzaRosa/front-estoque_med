@@ -21,13 +21,13 @@
                 </h3>
                 <ul>
                     <li *ngFor="let fabricante of remedio.fabricante">
-                        <h3 class="fabricante">{{fabricante.nome}}</h3>
+                        <h3 class="fabricante">{{fabricante.razaoSocial}}</h3>
                     </li>
                 </ul>
                 <h3><strong>Saldo</strong>: {{remedio.saldo}}</h3>
                 <h3><strong>Data de Validade</strong>: {{remedio.dataValidade}}</h3>
                 <h3><strong>Controlado</strong>: {{remedio.controlado}}</h3>
-                <ion-button [routerLink]="['edicao', remedio.id]">Editar</ion-button>
+                <ion-button [routerLink]="['remedios', remedio.id]">Editar</ion-button>
                 <ion-button (click)="excluir(remedio)">Excluir</ion-button>
             </ion-label>
         </ion-item>

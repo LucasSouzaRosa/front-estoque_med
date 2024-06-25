@@ -13,7 +13,7 @@ const routes: Routes = [
         component: SintomasCadastroComponent
     },
     {
-        path: 'edicao/:id',
+        path: 'sintomas/:id',
         component: SintomasCadastroComponent,
     }
 ];

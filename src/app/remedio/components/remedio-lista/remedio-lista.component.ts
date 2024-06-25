@@ -25,7 +25,7 @@ export class RemedioListaComponent implements OnInit, OnDestroy, ViewWillEnter {
     }
 
     ngOnInit(): void {
-                
+        this.listagem();            
     }
 
     ngOnDestroy(): void {
@@ -43,6 +43,7 @@ export class RemedioListaComponent implements OnInit, OnDestroy, ViewWillEnter {
                 (error) => {
                     console.error(error);
                     this.alertService.error('Erro ao carregar listagem de remedios');
+                    console.log("teste");
                 }
             );
     }

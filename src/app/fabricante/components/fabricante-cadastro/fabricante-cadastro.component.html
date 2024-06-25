@@ -8,43 +8,57 @@
 </ion-header>
 <ion-content>
   <form [formGroup]="fabricanteForm">
+
+    <!-- Razão Social -->
     <ion-item>
-      <ion-label position="floating">Nome: </ion-label>
-      <ion-input formControlName="nome" type="text"> </ion-input>
-      <ion-text
-        color="danger"
-        *ngIf="nome?.invalid && (nome?.dirty || nome?.touched)"
-      >
-        <small *ngIf="nome?.errors?.['required']">
-          O campo nome é obrigatório
-        </small>
-        <small *ngIf="nome?.errors?.['minlength']">
-          O campo nome deve conter no mínimo
-          {{ nome?.errors?.['minlength'].requiredLength }} caracteres
-        </small>
-        <small *ngIf="nome?.errors?.['maxlength']">
-          O campo nome deve conter no máximo
-          {{ nome?.errors?.['maxlength'].requiredLength }} caracteres
-        </small>
-      </ion-text>
+      <ion-label position="floating">Razão Social: </ion-label>
+      <ion-input formControlName="razaoSocial" type="text"></ion-input>
     </ion-item>
-    
+
+    <!-- CNPJ -->
+    <ion-item>
+      <ion-label position="floating">CNPJ: </ion-label>
+      <ion-input formControlName="cnpj" type="text"></ion-input>
+    </ion-item>
+
+    <!-- Telefone -->
+    <ion-item>
+      <ion-label position="floating">Telefone: </ion-label>
+      <ion-input formControlName="telefone" type="tel"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">E-mail: </ion-label>
+      <ion-input formControlName="email" type="email"></ion-input>
+    </ion-item>
+
+    <!-- Ativo -->
     <ion-list>
       <ion-list-header>
         <ion-label>Ativo</ion-label>
       </ion-list-header>
       <ion-radio-group name="ativo" formControlName="ativo">
         <ion-item>
-          <ion-radio slot="start" value="A">Ativo</ion-radio>
+          <ion-label>Ativo</ion-label>
+          <ion-radio slot="start" [value]="true"></ion-radio>
         </ion-item>
         <ion-item>
-          <ion-radio slot="start" value="I">Inativo</ion-radio>
+          <ion-label>Inativo</ion-label>
+          <ion-radio slot="start" [value]="false"></ion-radio>
         </ion-item>
       </ion-radio-group>
     </ion-list>
 
+    <!-- Licença Ativa -->
+    <ion-item>
+      <ion-label>Licença Ativa</ion-label>
+      <ion-checkbox slot="start" formControlName="licencaativa"></ion-checkbox>
+    </ion-item>
+    
+
+    <!-- Botão de Salvar -->
     <ion-fab vertical="bottom" horizontal="end">
-      <ion-fab-button (click)="salvar()" [disabled]="!fabricanteForm.valid">
+      <ion-fab-button (click)="salvar()">
         <ion-icon name="checkmark-outline"></ion-icon>
       </ion-fab-button>
     </ion-fab>

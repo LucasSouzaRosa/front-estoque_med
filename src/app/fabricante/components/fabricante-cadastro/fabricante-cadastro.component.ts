@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
 import { FabricanteInterface } from '../../types/fabricante.interface';
 import { FabricanteService } from '../../services/fabricante.service';
 import { AlertService } from '@services';
@@ -37,11 +36,29 @@ export class FabricanteCadastroComponent implements OnInit {
 
   private createForm(fabricante?: FabricanteInterface) {
     return new FormGroup({
-      nome: new FormControl(fabricante?.nome || '', [
+      nome: new FormControl(fabricante?.razaoSocial || '', [
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(150),
       ]),
+      razaoSocial: new FormControl(fabricante?.razaoSocial || '', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(150),
+      ]),
+      cnpj: new FormControl(fabricante?.cnpj || '', [
+        Validators.required
+      ]),
+      email: new FormControl(fabricante?.email || '', [
+        Validators.required
+      ]),
+      telefone: new FormControl(fabricante?.telefone || '', [
+        Validators.required 
+      ]),
+      ativo: new FormControl(fabricante?.ativo || true, [
+        Validators.required,
+      ]),
+      licencaativa: new FormControl(fabricante?.licencaativa || false),
     });
   }
 
@@ -53,7 +70,7 @@ export class FabricanteCadastroComponent implements OnInit {
       fabricante.id = this.fabricanteId;
     }
     this.fabricanteService.salvar(fabricante).subscribe(
-      () => this.router.navigate(['fabricante']),
+      () => this.router.navigate(['fabricantes']),
       (erro) => {
         console.error(erro);
         this.alertService.error(

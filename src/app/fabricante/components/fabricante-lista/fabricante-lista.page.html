@@ -3,16 +3,16 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>fabricante</ion-title>
+    <ion-title>Fabricantes</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
     <ion-item *ngFor="let fabricante of fabricantes">
-      <ion-label>{{fabricante.nome}}</ion-label>
+      <ion-label>{{fabricante.razaoSocial}}</ion-label>
       <ion-buttons>
-        <ion-button color="primary" [routerLink]="[fabricante.id]">
+        <ion-button color="primary" [routerLink]="['fabricantes', fabricante.id]">
           <ion-icon name="create" slot="icon-only"></ion-icon> 
         </ion-button>
         <ion-button color="primary" (click)="confirmarExclusao(fabricante)">

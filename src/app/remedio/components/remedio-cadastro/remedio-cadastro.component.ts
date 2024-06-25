@@ -59,6 +59,9 @@ export class RemedioCadastroComponent implements OnInit, OnDestroy {
         fabricante: new FormControl<FabricanteInterface[]>([], this.fabricanteValidator),
         tipo: new FormControl(''),
         sintomas: new FormControl<SintomasInterface[]>([], this.sintomaValidator),
+        ativo: new FormControl('', [
+            Validators.required,
+        ]),
     });
 
     private subscriptions = new Subscription();
@@ -84,7 +87,7 @@ export class RemedioCadastroComponent implements OnInit, OnDestroy {
     
                         this.remedioForm.patchValue({
                             ...remedio,
-                            dataValidade: dataValidade // Converte dataValidade para número (ano)
+                            dataValidade: dataValidade
                         });
                     },
                     (error) => {

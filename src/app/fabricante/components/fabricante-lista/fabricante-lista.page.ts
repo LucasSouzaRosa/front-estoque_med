@@ -61,7 +61,7 @@ export class FabricanteListaComponent
     this.alertController
       .create({
         header: 'Confirmação de exclusão',
-        message: `Deseja excluir o fabricante ${fabricante.nome}?`,
+        message: `Deseja excluir o fabricante ${fabricante.razaoSocial}?`,
         buttons: [
           {
             text: 'Sim',
@@ -81,7 +81,7 @@ export class FabricanteListaComponent
         () => this.listar(),
         (erro) => {
           console.error(erro);
-          this.alertService.error(`Não foi possível excluir o fabricante ${fabricante.nome}`);
+          this.alertService.error(`Não foi possível excluir o fabricante ${fabricante.razaoSocial}`);
         }
       );
     }

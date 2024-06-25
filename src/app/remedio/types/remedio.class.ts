@@ -5,18 +5,18 @@ import { SintomasInterface } from "src/app/sintomas/types/sintomas.interface";
 import { TipoEnum } from "./tipoenum";
 
 export class Remedio {
-    id?: number;
+    id?: string;
     nome: string;
     descricao?: string;
     saldo: number;
     tipo: TipoEnum;
     fabricante: FabricanteInterface[];
-    dataValidade: Date | null; // Alterado para Date | null
+    dataValidade: Date | null; 
     controlado: boolean;
     sintomas: SintomasInterface[];
 
     constructor(data: RemedioInterface) {
-        this.id = isNumber(data.id) ? data.id : undefined;
+        this.id = isString(data.id) ? data.id : undefined;
         this.nome = isString(data.nome) ? data.nome : '';
         this.descricao = isString(data.descricao) ? data.descricao : undefined;
         this.saldo = isNumber(data.saldo) ? data.saldo : 0;

@@ -7,8 +7,9 @@ import { Component } from '@angular/core';
 export class AppComponent {
   public menus = [
     { title: 'Home', url: '/home', icon: 'home' },
-    { title: 'Remedios', url: '/remedio', icon: 'remedio' },
-    { title: 'Fabricantes', url: '/fabricante', icon: 'people-circle' },
+    { title: 'Remedios', url: '/remedios', icon: 'medkit' },
+    { title: 'Fabricantes', url: '/fabricantes', icon: 'people-circle' },
+    { title: 'Sintomas', url: '/sintomas', icon: 'thermometer' },
   ];
   constructor() {}
 }

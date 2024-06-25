@@ -1,6 +1,6 @@
 import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouteReuseStrategy } from '@angular/router';
+import { RouteReuseStrategy, RouterModule } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
@@ -21,7 +21,7 @@ registerLocaleData(ptBr);
 
 @NgModule({
   declarations: [AppComponent, SintomasListaComponent, RemedioListaComponent, FabricanteListaComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, IonicModule, CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [RouterModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, IonicModule, CommonModule, FormsModule, ReactiveFormsModule],
   providers: [
     RemedioService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

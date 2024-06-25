@@ -8,7 +8,7 @@ import { FabricanteInterface } from '../types/fabricante.interface';
 })
 export class FabricanteService {
 
-  private url = 'http://localhost:3000/fabricante';
+  private url = 'http://localhost:3000/fabricantes';
 
   constructor(
     private httpClient: HttpClient
